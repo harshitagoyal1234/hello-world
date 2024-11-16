@@ -1,0 +1,55 @@
+esphome:
+  name: harshita
+  friendly_name: harshita
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "KdIYt6MCvRocca6cTslP57GPf321IG/R63ej/hcIjQk="
+
+# Over-the-Air (OTA) updates
+ota:
+  - platform: esphome
+    password: "a4e0eec32e31443601a9f2a3fcfe94a4"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Harshita Fallback Hotspot"
+    password: "v4vhAQ0i6m5z"
+
+# Captive Portal configuration for fallback mode
+captive_portal:
+
+# Example: Simple GPIO pin setup for an LED on GPIO2
+output:
+  - platform: gpio
+    pin: GPIO2  # Change this to the correct GPIO pin for your device
+    id: led_output
+
+# Example: Simple automation to blink the LED
+interval:
+  - interval: 1s
+    then:
+      - output.turn_on: led_output
+      - delay: 500ms
+      - output.turn_off: led_output
+
+# Enable web server for controlling and monitoring the ESP8266
+web_server:
+  port: 80
+
+# Enable I2C (if you have any I2C sensors, such as temperature or humidity sensors)
+# i2c:
+#   sda: GPIO4
+#   scl: GPIO5
+#   scan: True  # Automatically scan for I2C devices
